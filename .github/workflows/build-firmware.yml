@@ -1,10 +1,12 @@
 name: Build firmware
 
 # Builds the firmware with the same ESP-IDF version used for local
-# development, then commits the resulting binaries into docs/firmware/ so
-# the ESP Web Tools installer at docs/index.html always serves the latest
-# build. GitHub Pages (serving /docs on this branch) picks the new files up
-# automatically -- there's no separate deploy step.
+# development, commits the resulting binaries into docs/firmware/ so
+# they're tracked in git history, then deploys docs/ to GitHub Pages
+# directly from this workflow (rather than relying on the legacy
+# "deploy from a branch" mechanism, which uses GitHub's own
+# auto-generated workflow that we can't control the action versions
+# of -- see the Node 20/24 deprecation warning this replaced).
 
 on:
   push:
@@ -16,15 +18,20 @@ on:
       - "partitions.csv"
       - "sdkconfig.defaults"
       - "dependencies.lock"
+      - "docs/**"
       - ".github/workflows/build-firmware.yml"
   workflow_dispatch: {}
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
+# Only one Pages deployment at a time; don't cancel one that's already
+# publishing so we never end up with a half-updated page.
 concurrency:
-  group: build-firmware-${{ github.ref }}
-  cancel-in-progress: true
+  group: pages
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -53,7 +60,26 @@ jobs:
           git add docs/firmware/bootloader.bin docs/firmware/partition-table.bin docs/firmware/photo_album.bin
           if git diff --cached --quiet; then
             echo "Firmware unchanged, nothing to commit."
-            exit 0
+          else
+            git commit -m "Auto-build firmware from ${GITHUB_SHA:0:7} [skip ci]"
+            git push
           fi
-          git commit -m "Auto-build firmware from ${GITHUB_SHA:0:7} [skip ci]"
-          git push
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v6
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: docs
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
