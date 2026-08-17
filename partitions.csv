@@ -1,0 +1,9 @@
+# Name,     Type, SubType,  Offset,    Size,  Flags
+# Same layout as ESP-IDF's built-in "single app" table (nvs/phy_init/factory),
+# plus a "photos" data partition for the 5 persistent image slots (see the
+# photo_store component). SLOT_SIZE there must match slot_size*num_slots
+# below (8192 * 5 = 0xA000).
+nvs,        data, nvs,      0x9000,    0x6000,
+phy_init,   data, phy,      0xf000,    0x1000,
+factory,    app,  factory,  0x10000,   1M,
+photos,     data, 0x40,     0x110000,  0xA000,

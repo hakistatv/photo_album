@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/style.css">
+<title>Photo Album</title>
+</head>
+<body>
+<h1>Settings</h1>
+<form method="POST" action="/settings">
+  <label>Wi-Fi SSID:<br>
+    <input type="text" name="ssid" value="%s" maxlength="32" required>
+  </label><br><br>
+
+  <label>Wi-Fi Password:<br>
+    <input type="password" name="password" placeholder="leave blank to keep current" maxlength="64">
+  </label><br><br>
+
+  <label>Device name (http://NAME.local/):<br>
+    <input type="text" name="hostname" value="%s" maxlength="32" required>
+  </label><br><br>
+
+  <button type="submit">Save &amp; Restart</button>
+</form>
+<p><a href="/">Back to Home</a></p>
+</body>
+</html>

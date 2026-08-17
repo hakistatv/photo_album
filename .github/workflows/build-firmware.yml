@@ -1,0 +1,59 @@
+name: Build firmware
+
+# Builds the firmware with the same ESP-IDF version used for local
+# development, then commits the resulting binaries into docs/firmware/ so
+# the ESP Web Tools installer at docs/index.html always serves the latest
+# build. GitHub Pages (serving /docs on this branch) picks the new files up
+# automatically -- there's no separate deploy step.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "main/**"
+      - "components/**"
+      - "CMakeLists.txt"
+      - "partitions.csv"
+      - "sdkconfig.defaults"
+      - "dependencies.lock"
+      - ".github/workflows/build-firmware.yml"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-firmware-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Build with ESP-IDF
+        uses: espressif/esp-idf-ci-action@v1
+        with:
+          esp_idf_version: v6.0.2
+          target: esp32s3
+
+      - name: Copy binaries into the web installer
+        run: |
+          mkdir -p docs/firmware
+          cp build/bootloader/bootloader.bin docs/firmware/bootloader.bin
+          cp build/partition_table/partition-table.bin docs/firmware/partition-table.bin
+          cp build/photo_album.bin docs/firmware/photo_album.bin
+
+      - name: Commit updated firmware
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/firmware/bootloader.bin docs/firmware/partition-table.bin docs/firmware/photo_album.bin
+          if git diff --cached --quiet; then
+            echo "Firmware unchanged, nothing to commit."
+            exit 0
+          fi
+          git commit -m "Auto-build firmware from ${GITHUB_SHA:0:7} [skip ci]"
+          git push

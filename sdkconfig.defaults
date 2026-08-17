@@ -1,0 +1,7 @@
+CONFIG_ESPTOOLPY_NO_STUB=y
+
+# Custom partition table (partitions.csv) adds a "photos" data partition
+# for the 5 persistent image slots, on top of the standard single-app
+# nvs/phy_init/factory layout.
+CONFIG_PARTITION_TABLE_CUSTOM=y
+CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="partitions.csv"

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/style.css">
+<title>Photo Album</title>
+</head>
+<body>
+<h1>Upload Image</h1>
+%s
+<h2>Slots</h2>
+<div class="slot-grid">
+%s
+</div>
+
+<h2>Upload</h2>
+<p>Upload a 200&times;200 pixel JPEG image to save it into a slot and display it on the e-paper screen. It'll be converted to black &amp; white with dithering on the device -- no need to pre-process it yourself, just make sure it's exactly 200&times;200.</p>
+<form method="POST" action="/upload" enctype="multipart/form-data">
+  <label>Save to slot:
+    <div class="slot-picker">
+%s
+    </div>
+  </label>
+  <label>Image file:<br>
+    <input type="file" name="image" accept="image/jpeg,.jpg,.jpeg" required>
+  </label><br><br>
+  <button type="submit">Upload &amp; Display</button>
+</form>
+<p><a href="/">Back to Home</a></p>
+</body>
+</html>

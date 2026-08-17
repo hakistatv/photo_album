@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Photo Album -- Firmware Installer</title>
+    <script
+      type="module"
+      src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"
+    ></script>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        max-width: 640px;
+        margin: 0 auto;
+        padding: 2rem 1.25rem 3rem;
+        line-height: 1.5;
+        color: #1a1a1a;
+      }
+      h1 {
+        font-size: 1.8rem;
+        margin-bottom: 0.25rem;
+      }
+      .subtitle {
+        color: #555;
+        margin-top: 0;
+      }
+      esp-web-install-button {
+        display: block;
+        margin: 1.75rem 0;
+      }
+      esp-web-install-button button {
+        font-size: 1.15rem;
+        font-weight: 600;
+        padding: 0.85em 1.5em;
+        border: none;
+        border-radius: 10px;
+        background: #1a73e8;
+        color: #fff;
+      }
+      esp-web-install-button button:active {
+        background: #1558b0;
+      }
+      #not-allowed {
+        display: none;
+        background: #fdecea;
+        border: 1px solid #f5c6c2;
+        border-radius: 8px;
+        padding: 1rem;
+        color: #611a15;
+      }
+      ol {
+        padding-left: 1.25rem;
+      }
+      code {
+        background: #f0f0f0;
+        padding: 0.15em 0.4em;
+        border-radius: 4px;
+      }
+      a {
+        color: #1a73e8;
+      }
+      footer {
+        margin-top: 2.5rem;
+        color: #777;
+        font-size: 0.9rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Photo Album</h1>
+    <p class="subtitle">
+      Flash the firmware straight from your browser -- no ESP-IDF install
+      needed.
+    </p>
+
+    <esp-web-install-button manifest="firmware/manifest.json">
+      <button slot="activate">Connect &amp; Install</button>
+      <span slot="unsupported">
+        Your browser doesn't support Web Serial. Open this page in
+        <a href="https://www.google.com/chrome/">Chrome</a> or
+        <a href="https://www.microsoft.com/edge">Edge</a> on a desktop instead.
+      </span>
+      <span slot="not-allowed" id="not-allowed">
+        Web Serial is blocked here -- this page needs to be loaded over
+        <code>https://</code> (which it is, if you're reading this at
+        <code>github.io</code>), from Chrome or Edge on desktop.
+      </span>
+    </esp-web-install-button>
+
+    <h2>Before you start</h2>
+    <ol>
+      <li>Use Chrome or Edge on a desktop/laptop (Web Serial isn't available on mobile or in Safari/Firefox).</li>
+      <li>Plug the board in over USB.</li>
+      <li>Click <strong>Connect &amp; Install</strong> above and pick the board's serial port from the browser's device picker.</li>
+      <li>
+        If this is the first time flashing this board with this firmware
+        (or it previously ran different firmware), tick <em>Erase device</em>
+        when prompted -- it clears out any leftover settings from before.
+      </li>
+    </ol>
+
+    <p>
+      Once flashing finishes, the device reboots and starts its own Wi-Fi
+      access point (<code>photo-album</code> / <code>qrcode123</code> by
+      default). See the
+      <a href="https://github.com/hakistatv/photo_album">project README</a>
+      for how to use it.
+    </p>
+
+    <footer>
+      Firmware is rebuilt automatically from
+      <a href="https://github.com/hakistatv/photo_album">source</a> on every
+      push to <code>main</code> -- this always installs the latest build.
+    </footer>
+  </body>
+</html>

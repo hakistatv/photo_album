@@ -1,0 +1,19 @@
+{
+  "idf.extensionActivationMode": "always",
+  "idf.currentSetup": "/Users/hakista/.espressif/v6.0.2/esp-idf",
+  "idf.openOcdConfigs": [
+    "board/esp32s3-builtin.cfg"
+  ],
+  "idf.customExtraVars": {
+    "IDF_TARGET": "esp32s3"
+  },
+  "clangd.path": "/Users/hakista/.espressif/tools/esp-clang/esp-20.1.1_20250829/esp-clang/bin/clangd",
+  "clangd.arguments": [
+    "--background-index",
+    "--query-driver=**",
+    "--compile-commands-dir=/Users/hakista/Code/hakistatv/photo_album/build"
+  ],
+  "idf.port": "/dev/tty.usbmodem101",
+  "idf.flashBaudRate": "115200",
+  "idf.flashType": "UART"
+}
