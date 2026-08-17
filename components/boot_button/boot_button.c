@@ -1,6 +1,3 @@
-/*
- * SPDX-License-Identifier: CC0-1.0
- */
 #include <stdbool.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"

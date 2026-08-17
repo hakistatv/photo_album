@@ -1,6 +1,4 @@
 /*
- * SPDX-License-Identifier: CC0-1.0
- *
  * Shows an uploaded 200x200 monochrome image on the Waveshare
  * ESP32-S3-ePaper-1.54 (V1) board's e-paper display. Serves a Wi-Fi AP +
  * web page so you can upload a new image (as a JPEG) at any time, and a
@@ -22,6 +20,7 @@
 #include "mdns_service.h"
 #include "web_server.h"
 #include "boot_button.h"
+#include "build_info.h"
 
 static const char *TAG = "photo_album";
 
@@ -71,6 +70,10 @@ static void cycle_to_next_slot(void) {
 
 void app_main(void) {
     ESP_LOGI(TAG, "photo_album starting up");
+    /* Backup copy of the /origin route's provenance info (see
+     * web_server.c, build_info.h) -- keeps FW_ORIGIN_MARK in the compiled
+     * binary even if a fork strips the web server out entirely. */
+    ESP_LOGI(TAG, "%s / %s (%s)", FW_ORIGIN_AUTHOR, FW_ORIGIN_REPO, FW_ORIGIN_MARK);
 
     init_nvs();
     load_runtime_config();

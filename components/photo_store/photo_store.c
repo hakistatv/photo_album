@@ -1,6 +1,4 @@
 /*
- * SPDX-License-Identifier: CC0-1.0
- *
  * Persists e-paper framebuffers into fixed-size slots on the "photos" data
  * partition (see partitions.csv). Each slot is a 4-byte magic number
  * followed by an EPD_BUFFER_SIZE-byte framebuffer -- the magic is what lets

@@ -1,6 +1,3 @@
-/*
- * SPDX-License-Identifier: CC0-1.0
- */
 #include <stdlib.h>
 #include "esp_log.h"
 #include "esp_jpeg_dec.h"

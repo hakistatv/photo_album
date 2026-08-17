@@ -16,5 +16,7 @@
  *   "/settings" (GET, POST) Shows/updates the Wi-Fi SSID/password and mDNS
  *                           hostname -- see device_settings.h. Saving
  *                           restarts the device to apply them.
+ *   "/origin"   (GET)       Firmware provenance; not linked from any page
+ *                           -- see build_info.h.
  * Returns NULL on failure. */
 httpd_handle_t start_webserver(void);

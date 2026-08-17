@@ -1,6 +1,4 @@
 /*
- * SPDX-License-Identifier: CC0-1.0
- *
  * Decodes a JPEG file, converts it to grayscale, dithers it to 1-bit
  * (Atkinson dithering), and renders it into the epd_1in54 framebuffer.
  */
