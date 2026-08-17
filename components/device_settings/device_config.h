@@ -7,8 +7,8 @@
  */
 
 /* --- Wi-Fi access point --- */
-#define WIFI_AP_SSID     "photo-album"
-#define WIFI_AP_PASS     "qrcode123"
+#define WIFI_AP_SSID     "Hakista"
+#define WIFI_AP_PASS     "hak1sta!"
 #define WIFI_AP_CHANNEL  1
 #define WIFI_AP_MAX_CONN 4
 

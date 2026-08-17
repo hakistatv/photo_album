@@ -50,8 +50,8 @@ There are two ways to set the Wi-Fi SSID/password and device (mDNS) name:
    [`components/device_settings/device_config.h`](components/device_settings/device_config.h):
 
    ```c
-   #define WIFI_AP_SSID     "photo-album"
-   #define WIFI_AP_PASS     "qrcode123"
+   #define WIFI_AP_SSID     "Hakista"
+   #define WIFI_AP_PASS     "hak1sta!"
    #define WIFI_AP_CHANNEL  1
    #define WIFI_AP_MAX_CONN 4
 
@@ -93,8 +93,8 @@ published automatically by GitHub Actions on every push to `main`.
 4. Wait for the flash to finish (roughly 30s-1min); the board reboots into
    the firmware automatically once it's done.
 
-Then connect to the `photo-album` Wi-Fi network (default password
-`qrcode123`) and browse to `http://192.168.4.1/` -- see
+Then connect to the `Hakista` Wi-Fi network (default password
+`hak1sta!`) and browse to `http://192.168.4.1/` -- see
 [Connecting to the device](#connecting-to-the-device) below. Building from
 source (next section) is only needed if you want to change the code.
 
@@ -127,8 +127,8 @@ idf.py -p /dev/cu.usbmodem101 flash monitor
 
 1. Connect your phone/laptop's Wi-Fi to the SSID set in
    `components/device_settings/device_config.h`
-   (default `photo-album`), using the configured password (default
-   `qrcode123`).
+   (default `Hakista`), using the configured password (default
+   `hak1sta!`).
 2. Browse to either:
    - `http://192.168.4.1/` (always works -- the SoftAP's fixed gateway IP), or
    - `http://<MDNS_HOSTNAME>.local/` (default `http://photo-album.local/` --
